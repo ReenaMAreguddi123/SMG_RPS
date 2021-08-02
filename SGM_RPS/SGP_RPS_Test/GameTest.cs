@@ -21,7 +21,7 @@ namespace SGP_RPS_Test
             var result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.PlayerWon);
+            Assert.True(result == Result.Player_Won);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace SGP_RPS_Test
             var result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.SystemWon);
+            Assert.True(result == Result.System_Won);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace SGP_RPS_Test
             var result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.PlayerWon);
+            Assert.True(result == Result.Player_Won);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace SGP_RPS_Test
             result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.PlayerWon);
+            Assert.True(result == Result.Player_Won);
 
             //Arrange
             playerChoice = Choice.Rock;
@@ -108,7 +108,7 @@ namespace SGP_RPS_Test
             result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.PlayerWon);
+            Assert.True(result == Result.Player_Won);
 
             #endregion
 
@@ -122,7 +122,7 @@ namespace SGP_RPS_Test
             result = game.RoundResult(playerChoice, systemChoice);
 
             //Assert
-            Assert.True(result == Result.SystemWon);
+            Assert.True(result == Result.System_Won);
 
             #endregion
 
@@ -131,7 +131,7 @@ namespace SGP_RPS_Test
             var mostUsedMove = game.MostUsedMove();
 
             //Assert
-            Assert.True(finalResult == Result.PlayerWon);
+            Assert.True(finalResult == Result.Player_Won);
             Assert.True(mostUsedMove == Choice.Paper);
 
         }

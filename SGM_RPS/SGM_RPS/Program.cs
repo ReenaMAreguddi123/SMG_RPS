@@ -11,13 +11,14 @@ namespace SGM_RPS
         {
             Console.WriteLine("---------- Rock Paper Scissors ----------");
 
+            //start the game
             LetsPlay();
         }
 
 
         private static void LetsPlay()
         {
-            Console.Write("Lets play, What is your name :");
+            Console.Write("Let's play, What is your name :");
             var playerName = Console.ReadLine();
 
             Console.WriteLine($"Welcome {playerName}!!!, you are playing against application.");
@@ -29,19 +30,21 @@ namespace SGM_RPS
 
             while (playOn)
             {
+                //get player and system choice
                 var playerChoice = game.PlayerChoice();
                 var systemChoice = game.SystemChoice();
 
+                //caculate result
                 var result = game.RoundResult(playerChoice, systemChoice);
                 
-                Console.WriteLine("************************");
+                Console.WriteLine($"********* Round: {numberOfRounds + 1} ***************");
                 
                 switch (result)
                 {
-                    case Result.PlayerWon:
+                    case Result.Player_Won:
                         Console.Write("You won!!!");
                         break;
-                    case Result.SystemWon:
+                    case Result.System_Won:
                         Console.Write("System won!!!");
                         break;
                     case Result.Draw:
@@ -61,17 +64,15 @@ namespace SGM_RPS
                     playOn = false;
 
                     Console.WriteLine("----- Game Summary -----");
-
-                    Console.WriteLine("************************");
-
+                
                     var finalResult = game.FinalResult();
 
                     var winner = string.Empty;
-                    if (finalResult == Result.PlayerWon)
+                    if (finalResult == Result.Player_Won)
                     {
-                        winner = playerName + "-- Congragulations!!!";
+                        winner = playerName + "-- Congratulations!!!";
                     }
-                    else if (finalResult == Result.SystemWon)
+                    else if (finalResult == Result.System_Won)
                     {
                         winner = "System -- Better luck next time!!!";
 

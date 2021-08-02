@@ -13,8 +13,8 @@ namespace SGM_RPS.Models
 
     public enum Result
     {
-        PlayerWon,
-        SystemWon,
+        Player_Won,
+        System_Won,
         Draw,
     }
 }

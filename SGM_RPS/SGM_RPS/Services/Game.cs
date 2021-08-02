@@ -19,28 +19,46 @@ namespace SGM_RPS.Services
         {
             _random = new Random();
         }
-        
+
+
+        /// <summary>
+        /// Reads player choice from console
+        /// </summary>
+        /// <returns>Choice</returns>
         public Choice PlayerChoice()
         {
-            DisplayPlayerChoice();
+            DisplayPlayerChoice();            
 
             do
             {
                 var input = Console.ReadLine();
+                input = input.ToUpper();
 
-                Choice playerChoice;
-                if (Enum.TryParse(input.ToUpper(), true, out playerChoice))
+                if (input == "R" || input == "P" || input == "S")
                 {
-                    return playerChoice;
+                    switch(input)
+                    {
+                        case "R":
+                            return Choice.Rock;                         
+                        case "P":
+                           return Choice.Paper;                            
+                        case "S":
+                            return Choice.Scissors;                          
+                    }                   
                 }
                 else
                 {
                     Console.WriteLine("Invalid choice");
                     DisplayPlayerChoice();
                 }
-            } while (true);
+            } while (true);            
         }
 
+
+        /// <summary>
+        /// Returns random system choice
+        /// </summary>
+        /// <returns>Choice</returns>
         public Choice SystemChoice()
         {
             var systemChoice = Choice.Paper;
@@ -62,6 +80,12 @@ namespace SGM_RPS.Services
             return systemChoice;
         }
 
+        /// <summary>
+        /// Decides winner for the round
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="system"></param>
+        /// <returns>Result</returns>
         public Result RoundResult(Choice player, Choice system)
         {
             var result = Result.Draw;
@@ -74,12 +98,12 @@ namespace SGM_RPS.Services
                     }
                     else if (player == Choice.Paper)
                     {
-                        result = Result.PlayerWon;
+                        result = Result.Player_Won;
                         _playerPoints++;
                     }
                     else if (player == Choice.Scissors)
                     {
-                        result = Result.SystemWon;
+                        result = Result.System_Won;
                         _systemPoints++;
                     }
 
@@ -87,7 +111,7 @@ namespace SGM_RPS.Services
                 case Choice.Paper:
                     if (player == Choice.Rock)
                     {
-                        result = Result.SystemWon;
+                        result = Result.System_Won;
                         _systemPoints++;
                     }
                     else if (player == Choice.Paper)
@@ -96,7 +120,7 @@ namespace SGM_RPS.Services
                     }
                     else if (player == Choice.Scissors)
                     {
-                        result = Result.PlayerWon;
+                        result = Result.Player_Won;
                         _playerPoints++;
                     }
 
@@ -104,12 +128,12 @@ namespace SGM_RPS.Services
                 case Choice.Scissors:
                     if (player == Choice.Rock)
                     {
-                        result = Result.PlayerWon;
+                        result = Result.Player_Won;
                         _playerPoints++;
                     }
                     else if (player == Choice.Paper)
                     {
-                        result = Result.SystemWon;
+                        result = Result.System_Won;
                         _systemPoints++;
                     }
                     else if (player == Choice.Scissors)
@@ -120,21 +144,26 @@ namespace SGM_RPS.Services
                     break;
             }
 
+            //update move count
             CountChoice(player);
             CountChoice(system);
 
             return result;
         }
 
+        /// <summary>
+        /// Returns final winner after all rounds
+        /// </summary>
+        /// <returns></returns>
         public Result FinalResult()
         {
             if (_playerPoints > _systemPoints)
             {
-                return Result.PlayerWon;
+                return Result.Player_Won;
             }
             else if (_playerPoints < _systemPoints)
             {
-                return Result.SystemWon;
+                return Result.System_Won;
             }
             else
             {
@@ -142,6 +171,10 @@ namespace SGM_RPS.Services
             }
         }
 
+        /// <summary>
+        /// Returns most used move
+        /// </summary>
+        /// <returns></returns>
         public Choice MostUsedMove()
         {
             var max = Math.Max(_rock, Math.Max(_paper, _scissors));
@@ -155,6 +188,10 @@ namespace SGM_RPS.Services
             return Choice.Scissors;
         }
 
+        /// <summary>
+        /// keeps count of each move
+        /// </summary>
+        /// <param name="choice"></param>
         private void CountChoice(Choice choice)
         {
             switch (choice)
@@ -173,6 +210,7 @@ namespace SGM_RPS.Services
 
         private void DisplayPlayerChoice()
         {
+            Console.WriteLine();
             Console.WriteLine("Make your choice:");
             Console.WriteLine("************************");
             Console.WriteLine("R - Rock");
